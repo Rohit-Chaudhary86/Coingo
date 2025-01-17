@@ -6,7 +6,7 @@ export async function fetchCoinData(page=1,currency="usd"){
              &per_page=${perPage}&page=${page}`);
         return response.data;
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching coin detail",error);
         return null;
     }
 }   

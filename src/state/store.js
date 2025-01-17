@@ -7,5 +7,5 @@ const store=create((set)=>({
             currency:newCurrency
         }
     })
-}))
+}));
 export default store;
