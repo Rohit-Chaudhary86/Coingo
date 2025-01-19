@@ -1,4 +1,4 @@
- [Deployed URL]-(https://coingo-six.vercel.app/)
+ Deployed URL-(https://coingo-six.vercel.app/)
 
  - Reusable components made using presenter container pattern
  - Custom hooks implemented
