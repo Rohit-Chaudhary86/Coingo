@@ -8,7 +8,7 @@ import PageLoader from "../PageLoader/PageLoader"
 function CoinInfoContainer({coinId}){
     const {currency}= currencyStore();
     const[days,setDays]=useState(7);
-    const[interval,setCoinInterval]=useState('');
+    const[interval,setCoinInterval]=useState('daily');
 
     const {data:historicData,isLoading,isError}=useQuery(['coinHistoricData',coinId,currency,days,interval],
         ()=>fetchCoinHistoricData(coinId,interval,days,currency),{
