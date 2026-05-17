@@ -5,7 +5,7 @@ import PageLoader from "../PageLoader/PageLoader";
 import CustomErrorBoundary from "../CustomErrorBoundary/CustomErrorBoundary";
 
 const Home = lazy(() => import("../../pages/Home"));
-const CoinDetailsPage = lazy(() => import("../../pages/coinDetailsPage"));
+const CoinDetailsPage = lazy(() => import("../../pages/CoinDetailsPage"));
 const InsightsPage = lazy(() => import("../../pages/InsightsPage"));
 const ComparePage = lazy(() => import("../../pages/ComparePage"));
 const PortfolioPage = lazy(() => import("../../pages/PortfolioPage"));
