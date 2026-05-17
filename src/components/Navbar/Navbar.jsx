@@ -1,87 +1,60 @@
-
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import currencyStore from '../../state/store';
-function Navbar(){
-   const {setCurrency}=currencyStore();
-   const navigate=useNavigate();
-   function goToHome(){
-     navigate('/');
-   }
-    return (
-      <div className="navbar bg-base-100">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7"
-                />
-              </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-               <li ><a onClick={() => setCurrency('inr')}>INR</a></li>
-               <li ><a onClick={() => setCurrency('usd')}>USD</a></li>
-              
-            </ul>
-          </div>
-        </div>
-        <div onClick={goToHome} className="navbar-center">
-          <a className="btn btn-ghost text-xl">CoinGO</a>
-        </div>
-        <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-          <button className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                />
-              </svg>
-              <span className="badge badge-xs badge-primary indicator-item"></span>
-            </div>
-          </button>
-        </div>
+
+function Navbar() {
+  const { currency, setCurrency } = currencyStore();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navLinks = [
+    { path: "/insights", label: "Insights" },
+    { path: "/compare", label: "Compare" },
+    { path: "/portfolio", label: "Portfolio" },
+    { path: "/ask", label: "Ask AI" },
+  ];
+
+  return (
+    <div className="sticky top-0 z-50 w-full bg-gray-900 border-b border-gray-700 px-6 py-3 flex items-center justify-between">
+
+      <div onClick={() => navigate('/')} className="flex items-center gap-2 cursor-pointer group">
+        <div className="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center font-bold text-black text-sm">C</div>
+        <span className="text-white font-bold text-xl group-hover:text-yellow-400 transition-colors">CoinGo</span>
       </div>
-    );
+
+      {/* Nav links */}
+      <div className="hidden md:flex items-center gap-1">
+        {navLinks.map((link) => (
+          <button
+            key={link.path}
+            onClick={() => navigate(link.path)}
+            className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+              location.pathname === link.path
+                ? "bg-yellow-400/10 text-yellow-400"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            {link.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Currency Toggle */}
+      <div className="flex items-center gap-2 bg-gray-800 rounded-xl p-1">
+        <button
+          onClick={() => setCurrency('usd')}
+          className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${currency === 'usd' ? 'bg-yellow-400 text-black' : 'text-gray-400 hover:text-white'}`}
+        >
+          $ USD
+        </button>
+        <button
+          onClick={() => setCurrency('inr')}
+          className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${currency === 'inr' ? 'bg-yellow-400 text-black' : 'text-gray-400 hover:text-white'}`}
+        >
+          ₹ INR
+        </button>
+      </div>
+    </div>
+  );
 }
+
 export default Navbar;
